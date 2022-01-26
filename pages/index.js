@@ -9,12 +9,12 @@ function ParanormalLetter(props){ // props: delay
     <>
       <span>{letter}</span>
       <style jsx>{`
-        @font-face{
+        /*@font-face{
           font-family: 'sigils';
           font-style: normal;
           font-weight: 400;
-          src: url(./sigilos.ttf);
-        }
+          src: url('/sigilos.ttf');
+        }*/
 
         span{
           --i: ${props.delay};

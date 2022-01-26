@@ -3,6 +3,118 @@ import { Box, Button, Text, TextField, Image } from '@skynexui/components';
 import { useRouter } from 'next/router'
 import React from 'react';
 
+function ParanormalLetter(props){ // props: delay      
+  const letter = props.children
+  return (
+    <>
+      <span>{letter}</span>
+      <style jsx>{`
+        @font-face{
+          font-family: 'sigils';
+          font-style: normal;
+          font-weight: 400;
+          src: url(./sigilos.ttf);
+        }
+
+        span{
+          --i: ${props.delay};
+          /*font-family: 'sigils';*/
+          animation-name: shine;
+          animation-duration: 5s;
+          animation-timing-function: ease;
+          animation-iteration-count: infinite;
+          animation-delay: calc(var(--i) * 300ms);
+        }
+        
+        @keyframes shine {
+          0%{
+            color: rgba(255, 255, 255, 0.1);
+            text-shadow: 0px 0px 0px transparent;
+          }
+          50%{
+            color: rgba(255, 255, 255, 1);
+            text-shadow: 0px 0px 10px yellow,
+              0px 0px 20px yellow,
+              0px 0px 30px yellow;
+          }
+          100%{
+            color: rgba(255, 255, 255, 0.1);
+            text-shadow: 0px 0px 0px transparent;
+          }
+        }
+      `}</style>
+    </>
+  )
+}
+
+function ParanormalWord(props){ // props: x, y
+  const x = props.x
+  const y = props.y
+  const children = props.children
+
+  children.split
+  children.replace(' ', '&nbsp;')
+  let word = []
+  for(let i = 0; i < children.length; i++){
+    word.push(<ParanormalLetter delay={i + 1}>{children[i]}</ParanormalLetter>) 
+  }
+  
+
+  // for(let i = 0; i < children.length; i++){
+  //   word += <ParanormalLetter delay={i}>{children[i]}</ParanormalLetter>;console.log(<ParanormalLetter delay={i}>{children[i]}</ParanormalLetter>)
+  // }
+  
+
+  return (
+    <>
+      <div>
+
+        {word}
+        
+      </div>
+      
+      <style jsx>{`
+        div{
+          position: absolute;
+          top: ${y + '%'};
+          left: ${x + '%'};
+        }
+
+      `}</style>
+    </>
+  )
+
+}
+
+function ParanormalBackground(){
+  return(
+    <>
+      <div>
+        <ParanormalWord x="90" y="87">e voce sabe</ParanormalWord>
+        <ParanormalWord x="17" y="34">Transcender</ParanormalWord>
+        <ParanormalWord x="34" y="40">Calamidade</ParanormalWord>
+        <ParanormalWord x="56" y="80">Desconjuração</ParanormalWord>
+        <ParanormalWord x="14" y="90">O outro lado</ParanormalWord>
+        <ParanormalWord x="60" y="46">Anfitriao</ParanormalWord>
+        <ParanormalWord x="76" y="78">Magistrada</ParanormalWord>
+        <ParanormalWord x="40" y="65">O realizador da calamidade</ParanormalWord>
+        <ParanormalWord x="6" y="10">saber tudo e perder tudo</ParanormalWord>
+        <ParanormalWord x="90" y="10">espiral</ParanormalWord>
+        <ParanormalWord x="50" y="20">conhecimento</ParanormalWord>
+      </div>
+      <style jsx>{`
+        div{
+          background-color: black;
+          color: rgba(255, 255, 255, 0.1);
+          width: 100vw;
+          height: 100vh;
+        }
+      `}</style>
+    </>
+  )
+  
+}
+
 function Titulo(props) {
     const Tag = props.tag || 'h1';
     return (
@@ -38,11 +150,11 @@ function Titulo(props) {
   
     return (
       <>
+        <ParanormalBackground/>
         <Box
           styleSheet={{
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            backgroundColor: appConfig.theme.colors.primary[500],
-            backgroundImage: 'url(https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'absolute',
+            backgroundColor: 'transparent', width: '100vw', height: '100vh',
             backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
           }}
         >
@@ -73,7 +185,7 @@ function Titulo(props) {
                 width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
               }}
             >
-              <Titulo tag="h2">Boas vindas de volta!</Titulo>
+              <Titulo tag="h2">Bem vindo devolta ao Outro Lado</Titulo>
               <Text variant="body3" styleSheet={{ marginBottom: '32px', color: appConfig.theme.colors.neutrals[300] }}>
                 {appConfig.name}
               </Text>

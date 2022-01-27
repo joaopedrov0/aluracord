@@ -10,6 +10,8 @@ function GlobalStyle() {
       body {
         font-family: 'Open Sans', sans-serif;
         overflow: hidden;
+        width: 100vw;
+        height: 100vh;
       }
       /* App fit Height */ 
       html, body, #__next {
@@ -106,7 +108,7 @@ function ParanormalWord(props){ // props: x, y
         div{
           display: flex;
           flex-direction: ${flexdirection};
-          position: absolute;
+          position: relative;
           top: ${y + '%'};
           left: ${x + '%'};
         }
@@ -136,9 +138,9 @@ function ParanormalBackground(){
         <ParanormalWord x="80" y="44">voce entende tudo</ParanormalWord>
         <ParanormalWord x="50" y="20">mas voce vai esquecer</ParanormalWord> */}
         <ParanormalWord x="0" y="0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis lorem tristique, bibendum. ur</ParanormalWord>
-        <ParanormalWord x="2" y="96" direction="row-reverse">ed pretium, enim ut tempus sodales, lectus enim aliquam felis, nec egestas turpis risus inmaur</ParanormalWord>
-        <ParanormalWord x="0" y="4" direction="column-reverse">ed pretium, enim ut tempus soi</ParanormalWord>
-        <ParanormalWord x="99" y="0" direction="column">ed pretium, enim ut tempus sodales, lectus</ParanormalWord>
+        <ParanormalWord x="2" y="95" direction="row-reverse">ed pretium, enim ut tempus sodales, lectus enim aliquam felis, nec egestas turpis risus inmaur</ParanormalWord>
+        {/* <ParanormalWord x="2" y="0" direction="column-reverse">ed pretium, enim ut tempus soi</ParanormalWord>
+        <ParanormalWord x="20" y="0" direction="column">ed pretium, enim ut tempus sodales, lectus</ParanormalWord> */}
       </div>
       <style jsx>{`
         div{
@@ -146,6 +148,8 @@ function ParanormalBackground(){
           color: rgba(255, 255, 255, 0.1);
           width: 100vw;
           height: 100vh;
+          max-width: 100vw;
+          overflow: hidden;
         }
       `}</style>
     </>

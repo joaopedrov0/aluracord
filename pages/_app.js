@@ -138,7 +138,7 @@ function ParanormalBackground(){
         <ParanormalWord x="80" y="44">voce entende tudo</ParanormalWord>
         <ParanormalWord x="50" y="20">mas voce vai esquecer</ParanormalWord> */}
         <ParanormalWord x="0" y="0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis lorem tristique, bibendum. ur</ParanormalWord>
-        <ParanormalWord x="2" y="95" direction="row-reverse">ed pretium, enim ut tempus sodales, lectus enim aliquam felis, nec egestas turpis risus inmaur</ParanormalWord>
+        <ParanormalWord x="0" y="92" direction="row-reverse">ed pretium, enim ut tempus sodales, lectus enim aliquam felis, nec egestas turpis risus inmaur</ParanormalWord>
         {/* <ParanormalWord x="2" y="0" direction="column-reverse">ed pretium, enim ut tempus soi</ParanormalWord>
         <ParanormalWord x="20" y="0" direction="column">ed pretium, enim ut tempus sodales, lectus</ParanormalWord> */}
       </div>

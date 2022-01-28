@@ -3,6 +3,8 @@ import { Box, Button, Text, TextField, Image } from '@skynexui/components';
 import { useRouter } from 'next/router'
 import React from 'react';
 
+
+
 // function ParanormalLetter(props){ // props: delay      
 //   const letter = props.children
 //   return (

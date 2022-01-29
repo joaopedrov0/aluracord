@@ -192,7 +192,7 @@ function Titulo(props) {
             <Box
               onSubmit={(event) => {
                 event.preventDefault()
-                router.push('/chat')
+                router.push(`/chat?username=${username}`)
               }}
               as="form"
               styleSheet={{

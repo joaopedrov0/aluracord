@@ -2,6 +2,8 @@ import { Box, Text, TextField, Image, Button } from '@skynexui/components';
 import React from 'react';
 import appConfig from '../config.json';
 import { createClient } from '@supabase/supabase-js'
+import { useRouter } from 'next/router'
+import { ButtonSendSticker } from '../src/components/ButtonSendSticker'
 
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_ANON_KEY
 const SUPABASE_URL = process.env.NEXT_PUBLIC_URL
@@ -9,8 +11,21 @@ const SUPABASE_URL = process.env.NEXT_PUBLIC_URL
 const supabaseClient = createClient(process.env.NEXT_PUBLIC_URL, SUPABASE_ANON_KEY)
 
 
+function RealtimeMessageListener(addMessage) {
+    supabaseClient
+        .from("Messages")
+        .on('INSERT', (listenerResponse) => {
+            // console.log('Houve uma nova mensagem!')
+            addMessage(listenerResponse.new)
+        })
+        .subscribe()
+}
+
 export default function ChatPage() {
     // Sua lógica vai aqui
+
+    const router = useRouter()
+    const username = router.query.username
     const [message, setMessage] = React.useState("")
     const [chatList, setChatList] = React.useState([])
 
@@ -19,20 +34,28 @@ export default function ChatPage() {
             console.log(data)
             setChatList(data)
         })
+
+        RealtimeMessageListener((newMessage) => {
+            // handleNewMessage(newMessage)
+            setChatList((chatList) => {
+                console.log('O setChatList passa para a função, esse parametro ', chatList)
+                return [
+                    newMessage,
+                    ...chatList,
+                ]}
+            )
+            console.log('Quando o listener carrega, o chat list ta assim -> ', chatList)
+            console.log('Houve uma nova mensagem! ', newMessage)
+        })
     }, [])
 
     function handleNewMessage(newMessage) {
         const newMessageObj = {
             text: newMessage,
-            from: 'joaopedrov0',
+            from: username,
             // id: chatList.length,
         }
-        supabaseClient.from('Messages').insert([newMessageObj]).then(({ data }) => {
-            setChatList([
-                data[0],
-                ...chatList,
-            ])
-        })
+        supabaseClient.from('Messages').insert([newMessageObj]).then(data => {console.log('Criando nova mensagem: ', data)})
         
         setMessage('')
     }
@@ -108,6 +131,12 @@ export default function ChatPage() {
                                 backgroundColor: appConfig.theme.colors.neutrals[800],
                                 marginRight: '12px',
                                 color: appConfig.theme.colors.neutrals[200],
+                            }}
+                        />
+                        <ButtonSendSticker
+                            onStickerClick={(sticker) => {
+                                // console.log('[USANDO O COMPONENTE] Salva esse sticker no banco', sticker);
+                                handleNewMessage(':sticker: ' + sticker);
                             }}
                         />
                     </Box>
@@ -193,7 +222,15 @@ function MessageList(props) {
                         {(new Date().toLocaleDateString())}
                     </Text>
                 </Box>
-                {message.text}
+                {message.text.startsWith(":sticker:")
+                    ? (
+                        <Image src={message.text.replace(':sticker:', '')} maxWidth='100px' maxHeight='100px'/>
+                    )
+                    : (
+                        message.text
+                    )
+                }
+                {/* {message.text} */}
             </Text>
                 )
             })}
